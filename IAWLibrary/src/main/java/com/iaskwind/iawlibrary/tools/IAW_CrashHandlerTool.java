@@ -99,7 +99,7 @@ public class IAW_CrashHandlerTool implements Thread.UncaughtExceptionHandler {
                 e.printStackTrace();
             }
             //退出程序
-            IAW_ActivityTool.getInstance().appExit();
+            IAW_ActivityTool.appExit();
         }
     }
 

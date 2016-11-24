@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.blankj.utilcode.utils.BarUtils;
 import com.blankj.utilcode.utils.SPUtils;
 import com.iaskwind.iawlibrary.iaw.IAW_BarUtils;
+import com.iaskwind.iawlibrary.tools.IAW_ActivityTool;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+        IAW_ActivityTool.startActivityByNewTask(this,MainActivity.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

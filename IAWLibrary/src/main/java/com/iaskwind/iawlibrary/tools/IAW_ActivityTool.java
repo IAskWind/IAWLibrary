@@ -20,27 +20,27 @@ import java.util.Map;
  */
 public class IAW_ActivityTool {
 
-    private static IAW_ActivityTool instance;
-    /**
-     *
-     * 获取实例 ,单例模式
-     * @return
-     */
-    public synchronized static IAW_ActivityTool getInstance() {
-        if (instance == null) {
-            instance = new IAW_ActivityTool();
-        }
-        return instance;
-    }
+//    private static IAW_ActivityTool instance;
+//    /**
+//     *
+//     * 获取实例 ,单例模式
+//     * @return
+//     */
+//    public synchronized static IAW_ActivityTool getInstance() {
+//        if (instance == null) {
+//            instance = new IAW_ActivityTool();
+//        }
+//        return instance;
+//    }
 
 
-    public  void startActivity(Context context, Activity activity) {
-        Intent intent = new Intent(context, activity.getClass());
+    public static void startActivity(Context context, Class activity) {
+        Intent intent = new Intent(context, activity);
         context.startActivity(intent);
     }
 
-    public  void startActivityByNewTask(Context context, Activity activity) {
-        Intent intent = new Intent(context, activity.getClass());
+    public static void startActivityByNewTask(Context context,Class activity) {
+        Intent intent = new Intent(context, activity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 
@@ -50,14 +50,14 @@ public class IAW_ActivityTool {
      * @param context
      * @Desc 跳转到指定的Activity 多级跳转
      */
-    public  void startActivityByClearTop(Context context, Activity activity) {
-        Intent intent = new Intent(context, activity.getClass());
+    public static void startActivityByClearTop(Context context, Class activity) {
+        Intent intent = new Intent(context, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
-    public  void startActivity(Context context, Activity activity, HashMap<String, Parcelable> hashMap) {
-        Intent intent = new Intent(context, activity.getClass());
+    public static void startActivity(Context context, Class activity, HashMap<String, Parcelable> hashMap) {
+        Intent intent = new Intent(context, activity);
         Iterator iter = hashMap.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
@@ -69,24 +69,24 @@ public class IAW_ActivityTool {
     }
 
 
-    public  void startActivity(Context context, Activity activity, String arrayListKey, ArrayList<Parcelable> parcelables) {
-        Intent intent = new Intent(context, activity.getClass());
+    public static void startActivity(Context context, Class activity, String arrayListKey, ArrayList<Parcelable> parcelables) {
+        Intent intent = new Intent(context, activity);
         intent.putParcelableArrayListExtra(arrayListKey, parcelables);
         context.startActivity(intent);
     }
 
-    public  void startWebActivity(Context context, String url) {
+    public static void startWebActivity(Context context, String url) {
         final Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         context.startActivity(intent);
     }
 
-    public  void startEmailActivity(Context context, int toResId, int subjectResId, int bodyResId) {
+    public  static void startEmailActivity(Context context, int toResId, int subjectResId, int bodyResId) {
         startEmailActivity(context, context.getString(toResId), context.getString(subjectResId),
                 context.getString(bodyResId));
     }
 
-    public  void startEmailActivity(Context context, String to, String subject, String body) {
+    public static void startEmailActivity(Context context, String to, String subject, String body) {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
 
@@ -107,24 +107,24 @@ public class IAW_ActivityTool {
             }
         }
         catch (Exception e) {
-            Log.w("Exception encountered while looking for email intent receiver.", e);
+            IAW_LogTool.e("Exception encountered while looking for email intent receiver."+e);
         }
 
         context.startActivity(intent);
     }
 
-    private  HashMap<String, WeakReference<Activity>> mContexts = new HashMap<String, WeakReference<Activity>>();
+    private static HashMap<String, WeakReference<Activity>> mContexts = new HashMap<String, WeakReference<Activity>>();
     //一般在BaseActivity的onCreate里执行
-    public  synchronized void pushActivity(Activity context) {
+    public static  synchronized void pushActivity(Activity context) {
         WeakReference<Activity> reference = new WeakReference<Activity>(context);
         mContexts.put(context.getClass().getSimpleName(), reference);
     }
     //一般在BaseActivity的onDestroy里执行
-    public  synchronized void popActivity(Activity context) {
+    public static synchronized void popActivity(Activity context) {
         mContexts.remove(context.getClass().getSimpleName());
     }
 
-    public  Activity getActivity(String className) {
+    public static Activity getActivity(String className) {
         WeakReference<Activity> reference = mContexts.get(className);
         if (reference == null) {
             return null;
@@ -136,7 +136,7 @@ public class IAW_ActivityTool {
         return context;
     }
 
-    public  void finishAllActivity(){
+    public static  void finishAllActivity(){
         Iterator iter = mContexts.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
@@ -152,7 +152,7 @@ public class IAW_ActivityTool {
 
     }
 
-   public  void appExit(){
+   public static void appExit(){
        try {
            finishAllActivity();
            //退出JVM(java虚拟机),释放所占内存资源,0表示正常退出(非0的都为异常退出)
@@ -165,7 +165,7 @@ public class IAW_ActivityTool {
 
    }
 
-    public  HashMap<String, WeakReference<Activity>> getMContexts() {
+    public static HashMap<String, WeakReference<Activity>> getMContexts() {
         return mContexts;
     }
 
