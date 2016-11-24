@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.blankj.utilcode.utils.BarUtils;
+import com.blankj.utilcode.utils.SPUtils;
 import com.iaskwind.iawlibrary.iaw.IAW_BarUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
