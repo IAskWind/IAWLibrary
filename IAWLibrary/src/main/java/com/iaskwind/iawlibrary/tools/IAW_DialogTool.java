@@ -10,19 +10,14 @@ import android.view.View;
  * Created by winston on 16/8/5.
  */
 public class IAW_DialogTool {
-    public interface DialogListener{
+
+    public interface DialogCallBack{
         void ok();
         void cancle(DialogInterface dialog);
-        void cancle();
     }
 
-//    public interface DialogCallBack {
-//        void ok();
-//
-//        void cancle();
-//    }
 
-    public static void showSysDialog(Context mContext, String title, View view, String msg, final DialogListener dialogCallBack) {
+    public static void showSysDialog(Context mContext, String title, View view, String msg, final DialogCallBack dialogCallBack) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
             builder = new AlertDialog.Builder(mContext, AlertDialog.THEME_HOLO_LIGHT);
@@ -42,7 +37,7 @@ public class IAW_DialogTool {
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
-                dialogCallBack.cancle();
+                dialogCallBack.cancle(dialog);
 
             }
         }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -57,7 +52,7 @@ public class IAW_DialogTool {
         AlertDialog dlg = builder.create();
         dlg.show();
     }
-    public static void showDialog(Context mContext, String title, String msg, final DialogListener listener){
+    public static void showDialog(Context mContext, String title, String msg, final DialogCallBack listener){
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
             builder = new AlertDialog.Builder(mContext, AlertDialog.THEME_HOLO_LIGHT);
