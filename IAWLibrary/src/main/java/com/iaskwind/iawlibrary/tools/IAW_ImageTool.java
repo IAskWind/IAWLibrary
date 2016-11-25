@@ -1,9 +1,12 @@
 package com.iaskwind.iawlibrary.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -57,6 +60,95 @@ public class IAW_ImageTool {
             e.printStackTrace();
         }
         return tempfile;
+    }
+
+    /**
+     * compute Sample Size
+     *
+     * @param options
+     * @param minSideLength
+     * @param maxNumOfPixels
+     * @return
+     */
+    public static int computeSampleSize(BitmapFactory.Options options,
+                                        int minSideLength, int maxNumOfPixels) {
+        int initialSize = computeInitialSampleSize(options, minSideLength,
+                maxNumOfPixels);
+
+        int roundedSize;
+        if (initialSize <= 8) {
+            roundedSize = 1;
+            while (roundedSize < initialSize) {
+                roundedSize <<= 1;
+            }
+        } else {
+            roundedSize = (initialSize + 7) / 8 * 8;
+        }
+
+        return roundedSize;
+    }
+
+    /**
+     * compute Initial Sample Size
+     *
+     * @param options
+     * @param minSideLength
+     * @param maxNumOfPixels
+     * @return
+     */
+    private static int computeInitialSampleSize(BitmapFactory.Options options,
+                                                int minSideLength, int maxNumOfPixels) {
+        double w = options.outWidth;
+        double h = options.outHeight;
+
+        // 上下限范围
+        int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math
+                .sqrt(w * h / maxNumOfPixels));
+        int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(
+                Math.floor(w / minSideLength), Math.floor(h / minSideLength));
+
+        if (upperBound < lowerBound) {
+            // return the larger one when there is no overlapping zone.
+            return lowerBound;
+        }
+
+        if ((maxNumOfPixels == -1) && (minSideLength == -1)) {
+            return 1;
+        } else if (minSideLength == -1) {
+            return lowerBound;
+        } else {
+            return upperBound;
+        }
+    }
+
+
+    /**
+     * 将图片转换为byte[]
+     *
+     * @param bm
+     * @return
+     */
+    public static byte[] Bitmap2Bytes(Bitmap bm) {
+
+        ByteArrayOutputStream baos = null;
+        byte[] imgByte = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            imgByte = baos.toByteArray();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return imgByte;
     }
 
 }
