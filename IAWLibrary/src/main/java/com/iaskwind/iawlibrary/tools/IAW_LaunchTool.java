@@ -1,6 +1,7 @@
 package com.iaskwind.iawlibrary.tools;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,11 @@ import java.util.List;
  * 设置一个样式启动页面,在onCreate,删除默认的setContentView,然后直接调用IAW_LaunchTool.launchView
  */
 public class IAW_LaunchTool {
-
+    
+    public interface ActivityCallBack{
+        void setContentView(View view); //设置的view
+        void end(); //结束执行的方法
+    }
     /**
      *设置一个样式启动页面,在onCreate,删除默认的setContentView,然后直接调用IAW_LaunchTool.launchView
      * @param context
@@ -36,11 +41,11 @@ public class IAW_LaunchTool {
      * @param logoHeight 单位dp
      * @param baseUrl 网络的图片的url
      * @param splashNames 网络图片的名字list
-     * @param animationListener 动画执行完了的监听类 一般在end里面做跳转
+     * @param activityCallBack 回调
      */
-    public static View  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg,int logo,int logoWidth,int logoHeight,String baseUrl, List<String> splashNames, Animation.AnimationListener animationListener){
+    public static void  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg, int logo, int logoWidth, int logoHeight, String baseUrl, List<String> splashNames,final ActivityCallBack activityCallBack){
         View view = View.inflate(context, R.layout.launchview, null);
-//        context.setContentView(view);
+        activityCallBack.setContentView(view);
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
         View viewLogo = view.findViewById(R.id.launchLogo);
         viewLogo.setBackgroundResource(logo);
@@ -97,8 +102,22 @@ public class IAW_LaunchTool {
         alphaAnimation.setDuration(2000);
         alphaAnimation.setFillAfter(true);
         foreMask.startAnimation(alphaAnimation);
-        alphaAnimation.setAnimationListener(animationListener);
-        return view;
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                activityCallBack.end();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
     }
 }
