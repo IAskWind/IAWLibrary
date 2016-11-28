@@ -18,8 +18,12 @@ public class IAW_StringTool {
      * @return
      */
     public static List<String> stringToList(String str,String symbol){
+        List<String> strList =new ArrayList<>();
         String[] strs = str.split(symbol);
-        return  Arrays.asList(strs);
+        for(String s : strs){
+            strList.add(s);
+        }
+        return  strList;
     }
 
     /**
