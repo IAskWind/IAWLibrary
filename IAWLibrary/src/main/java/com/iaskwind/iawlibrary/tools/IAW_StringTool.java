@@ -26,21 +26,5 @@ public class IAW_StringTool {
         return  strList;
     }
 
-    /**
-     * List<String>转String 用指定分隔符分隔
-     * @param list
-     * @param symbol
-     * @return
-     */
-    public static String listToString(List<String> list,String symbol){
-        String listString = "";
-        for (int i = 0;i <list.size(); i++){
-            if(i != list.size()-1) {
-                listString += list.get(i) + symbol;
-            }else{
-                listString += list.get(i);
-            }
-        }
-        return listString;
-    }
+
 }
