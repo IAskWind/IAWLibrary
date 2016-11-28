@@ -6,7 +6,9 @@ import com.blankj.utilcode.utils.IntentUtils;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -16,11 +18,13 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        System.out.println("123");
-        System.out.println(Arrays.toString(IntentUtils.class.getMethods()));
+
+        System.out.println(String.valueOf((int)(Math.random() * 9+1)));
+        System.out.println(Math.random());
         System.out.println(Arrays.toString(IntentUtils.class.getDeclaredMethods()));
         System.out.println(Arrays.toString(IntentUtils.class.getDeclaredMethods()[0].getParameterTypes()));
-
+        List<String> list =new ArrayList<String>();
+        list.contains("1");
         assertEquals(4, 2 + 2);
     }
 }
