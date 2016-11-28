@@ -26,13 +26,13 @@ import java.util.List;
  * 设置一个样式启动页面,在onCreate,删除默认的setContentView,然后直接调用IAW_LaunchTool.launchView
  */
 public class IAW_LaunchTool {
-    
+
     public interface ActivityCallBack{
-        void setContentView(View view); //设置的view
+        void setView(View view); //设置的view
         void end(); //结束执行的方法
     }
     /**
-     *设置一个样式启动页面,在onCreate,删除默认的setContentView,然后直接调用IAW_LaunchTool.launchView
+     *设置一个样式启动页面,在onCreate,删除默认的setContentView,然后直接调用IAW_LaunchTool.launchView,在回调里面处理setContentView
      * @param context
      * @param spUtils  用来保存网络图片的名字，记录那些已经被缓存了
      * @param defaultLaunchImg //默认启动图片 没有下载网络图片，用本地
@@ -45,7 +45,7 @@ public class IAW_LaunchTool {
      */
     public static void  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg, int logo, int logoWidth, int logoHeight, String baseUrl, List<String> splashNames,final ActivityCallBack activityCallBack){
         View view = View.inflate(context, R.layout.launchview, null);
-        activityCallBack.setContentView(view);
+        activityCallBack.setView(view);
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
         View viewLogo = view.findViewById(R.id.launchLogo);
         viewLogo.setBackgroundResource(logo);
