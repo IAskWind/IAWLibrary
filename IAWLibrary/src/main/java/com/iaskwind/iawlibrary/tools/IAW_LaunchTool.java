@@ -38,9 +38,9 @@ public class IAW_LaunchTool {
      * @param splashNames 网络图片的名字list
      * @param animationListener 动画执行完了的监听类 一般在end里面做跳转
      */
-    public static void  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg,int logo,int logoWidth,int logoHeight,String baseUrl, List<String> splashNames, Animation.AnimationListener animationListener){
+    public static View  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg,int logo,int logoWidth,int logoHeight,String baseUrl, List<String> splashNames, Animation.AnimationListener animationListener){
         View view = View.inflate(context, R.layout.launchview, null);
-        context.setContentView(view);
+//        context.setContentView(view);
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
         View viewLogo = view.findViewById(R.id.launchLogo);
         viewLogo.setBackgroundResource(logo);
@@ -98,6 +98,7 @@ public class IAW_LaunchTool {
         alphaAnimation.setFillAfter(true);
         foreMask.startAnimation(alphaAnimation);
         alphaAnimation.setAnimationListener(animationListener);
+        return view;
 
     }
 }
