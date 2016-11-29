@@ -56,7 +56,7 @@ public class IAW_UpdateTool {
     public static void initUpdate(RxAppCompatActivity context,String updateInfoUrl,final boolean manualCheck) {
         mContext = context;
         getUpdateInfoUrl= updateInfoUrl;
-        IAW_UpdateAPI service = IAW_RetrofitServiceTool.createRetrofitService(IAW_UpdateAPI.class,"");
+        IAW_UpdateAPI service = IAW_RetrofitServiceTool.createRetrofitService(IAW_UpdateAPI.class);
         service.getUpdateInfo(updateInfoUrl)
                 .compose(mContext.<IAW_UpdateInfoModel>bindToLifecycle())
                 .throttleFirst(10, TimeUnit.SECONDS)
@@ -137,7 +137,7 @@ public class IAW_UpdateTool {
 //                .client(builder.build())
 //                .build().create(DownloadApi.class);
         //这里的baseURL不起作用
-        IAW_UpdateAPI service = IAW_RetrofitServiceTool.downloadRetrofitServiceByProgress(IAW_UpdateAPI.class,"");
+        IAW_UpdateAPI service = IAW_RetrofitServiceTool.downloadRetrofitServiceByProgress(IAW_UpdateAPI.class);
 
         ProgressHelper.setProgressHandler(new DownloadProgressHandler() {
             @Override

@@ -13,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by winston on 16/11/29.
  */
 public class IAW_RetrofitServiceTool {
+    //给个默认的有效的url否则会报 java.lang.IllegalArgumentException: Illegal URL:
+    public static final String baseUrl = "http://127.0.0.1/";
 
     private static Retrofit.Builder  getRetrofitBuilder(String baseUrl) {
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
@@ -26,11 +28,15 @@ public class IAW_RetrofitServiceTool {
         return getRetrofitBuilder(baseUrl).build().create(service);
     }
 
+    public static <T> T createRetrofitService(Class<T> service) {
+        return getRetrofitBuilder(baseUrl).build().create(service);
+    }
+
     /**
      * 文件下载获取进度条使用
      * @return
      */
-    public static <T> T downloadRetrofitServiceByProgress(Class<T> service,String baseUrl){
+    public static <T> T downloadRetrofitServiceByProgress(Class<T> service){
         OkHttpClient.Builder builder = ProgressHelper.addProgress(null);
         return getRetrofitBuilder(baseUrl).client(builder.build()).build().create(service);
     }
