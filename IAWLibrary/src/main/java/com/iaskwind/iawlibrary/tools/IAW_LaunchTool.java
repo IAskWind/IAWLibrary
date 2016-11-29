@@ -44,17 +44,17 @@ public class IAW_LaunchTool {
      * @param activityCallBack 回调
      */
     public static void  launchView(Activity context, final SPUtils spUtils, int defaultLaunchImg, int logo, int logoWidth, int logoHeight, String baseUrl, List<String> splashNames,final ActivityCallBack activityCallBack){
-        View view = View.inflate(context, R.layout.launchview, null);
-        activityCallBack.setView(view);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        View viewLogo = view.findViewById(R.id.launchLogo);
-        viewLogo.setBackgroundResource(logo);
+        View launchview = View.inflate(context, R.layout.launchview, null);
+        activityCallBack.setView(launchview);
+        final ImageView launchImageView = (ImageView) launchview.findViewById(R.id.launchImage);
+        View launchLogo = launchview.findViewById(R.id.launchLogo);
+        launchLogo.setBackgroundResource(logo);
 
-        ViewGroup.LayoutParams lp=viewLogo.getLayoutParams();
+        ViewGroup.LayoutParams lp=launchLogo.getLayoutParams();
         lp.width= IAW_DisplayTool.dip2px(context,logoWidth);
         lp.height=IAW_DisplayTool.dip2px(context,logoHeight);
-        viewLogo.setLayoutParams(lp);
-        View foreMask =view.findViewById(R.id.launchMask);
+        launchLogo.setLayoutParams(lp);
+        View foreMask =launchview.findViewById(R.id.launchMask);
         String splashStr = spUtils.getString(IAW_ContantTool.LAUNCH_IMAGES,"");
         final List<String> splashs = IAW_StringTool.stringToList(splashStr,",");
         final String currentSplash = (String) IAW_ListTool.randomList(splashNames);
@@ -64,11 +64,11 @@ public class IAW_LaunchTool {
             Log.d("StartHomeActivity","加载本地图片");
             Glide.with(context)
                     .load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView);
+                    .into(launchImageView);
         }else{
             Glide.with(context)
                     .load(defaultLaunchImg)
-                    .into(imageView);
+                    .into(launchImageView);
 
             Glide.with(context)
                     .load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
