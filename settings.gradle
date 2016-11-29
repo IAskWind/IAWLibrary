@@ -1,1 +1,1 @@
-include ':app', ':IAWLibrary'
+include ':app', ':IAWLibrary', ':RetrofitProgresslibrary'

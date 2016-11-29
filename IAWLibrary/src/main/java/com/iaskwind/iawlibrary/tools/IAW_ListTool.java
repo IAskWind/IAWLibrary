@@ -12,7 +12,7 @@ public class IAW_ListTool{
      * @param list
      * @return
      */
-    public static Object randomList(List list){
+    public static <T> T randomList(List<T> list){
         return list.get((int)(Math.random() * list.size()));
     }
 

@@ -19,14 +19,34 @@ android {
     }
 }
 
+ext {
+    retrofit2Version = '2.0.2'
+    supportVersion = '23.2.1'
+    rxlifecycleVersion = '0.5.0'
+
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile "com.android.support:design:${supportVersion}"
     compile 'io.reactivex:rxjava:1.2.2'
+    //工具库
     //https://github.com/Blankj/AndroidUtilCode
-    compile 'com.blankj:utilcode:1.3.3'
+    compile 'com.blankj:utilcode:1.3.4'
+    //加密库
     compile files('libs/jncryptor-1.2.0.jar')
+    //图片处理
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //状态栏
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //retrofit
+    compile "com.squareup.retrofit2:retrofit:${retrofit2Version}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit2Version}"
+    compile project(':RetrofitProgresslibrary')
+    //updateTool用到的dialog
+    compile 'me.drakeet.materialdialog:library:1.3.1'
+    compile "com.trello:rxlifecycle:${rxlifecycleVersion}"
+    compile "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
 }

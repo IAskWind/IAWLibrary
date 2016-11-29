@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="发现新版本"
+        android:textColor="@color/updateTool_TopTitle"
+        android:textSize="@dimen/updateTool_TopTitleFontSize" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_margin="@dimen/dip5"
+        android:background="@color/updateTool_SplitLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dip10"
+        android:layout_marginRight="@dimen/dip10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最新版本:" />
+
+        <TextView
+            android:id="@+id/update_updateName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.0.4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dip10"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新内容:" />
+
+        <TextView
+            android:id="@+id/updateLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:maxLines="8"
+            android:text="1.发打发打发发放大地方地方\n2.发放大幅度大风等发达\n3.放大放大放大发打发打发"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_ok_updateInfo"
+            android:layout_width="114.0dip"
+            android:layout_height="40.0dip"
+            android:background="@color/updateTool_BtnColor"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="25dp"
+            android:text="立即更新" />
+
+        <Button
+            android:id="@+id/btn_cancle_updateInfo"
+            android:layout_width="114.0dip"
+            android:layout_height="40.0dip"
+            android:background="@color/updateTool_ContentFontColor"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="25dp"
+            android:text="以后再说" />
+    </LinearLayout>
+
+</LinearLayout>
