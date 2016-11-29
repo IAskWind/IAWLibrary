@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IAWLibrary.iml" filepath="$PROJECT_DIR$/IAWLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/IAWLibrary/IAWLibrary-IAWLibrary.iml" filepath="$PROJECT_DIR$/IAWLibrary/IAWLibrary-IAWLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RetrofitProgresslibrary/RetrofitProgresslibrary.iml" filepath="$PROJECT_DIR$/RetrofitProgresslibrary/RetrofitProgresslibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

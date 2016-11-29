@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/IAWLibrary" />
-            <option value="$PROJECT_DIR$/RetrofitProgresslibrary" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
@@ -17,7 +16,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/IAWLibrary" />
-            <option value="$PROJECT_DIR$/RetrofitProgresslibrary" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

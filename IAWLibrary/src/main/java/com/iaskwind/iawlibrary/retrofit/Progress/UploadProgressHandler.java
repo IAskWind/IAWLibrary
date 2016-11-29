@@ -1,32 +1,29 @@
-package com.ljd.retrofit.progress;
-
+package com.iaskwind.iawlibrary.retrofit.Progress;
 
 import android.os.Looper;
 import android.os.Message;
 
 /**
- * Created by ljd on 4/12/16.
+ * Created by ljd on 4/18/16.
  */
-public abstract class DownloadProgressHandler extends ProgressHandler{
+public abstract class UploadProgressHandler extends ProgressHandler {
 
-    private static final int DOWNLOAD_PROGRESS = 1;
+    private static final int UPLOAD_PROGRESS = 0;
     protected ResponseHandler mHandler = new ResponseHandler(this, Looper.getMainLooper());
 
     @Override
     protected void sendMessage(ProgressBean progressBean) {
-        mHandler.obtainMessage(DOWNLOAD_PROGRESS,progressBean).sendToTarget();
+        mHandler.obtainMessage(UPLOAD_PROGRESS,progressBean).sendToTarget();
 
     }
 
     @Override
     protected void handleMessage(Message message){
         switch (message.what){
-            case DOWNLOAD_PROGRESS:
+            case UPLOAD_PROGRESS:
                 ProgressBean progressBean = (ProgressBean)message.obj;
                 onProgress(progressBean.getBytesRead(),progressBean.getContentLength(),progressBean.isDone());
-
         }
     }
-
 
 }

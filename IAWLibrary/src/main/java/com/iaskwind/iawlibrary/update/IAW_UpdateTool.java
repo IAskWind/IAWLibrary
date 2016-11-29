@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.AppUtils;
 import com.iaskwind.iawlibrary.R;
 import com.iaskwind.iawlibrary.retrofit.IAW_RetrofitServiceTool;
-import com.ljd.retrofit.progress.DownloadProgressHandler;
-import com.ljd.retrofit.progress.ProgressHelper;
+import com.iaskwind.iawlibrary.retrofit.Progress.DownloadProgressHandler;
+import com.iaskwind.iawlibrary.retrofit.Progress.ProgressHelper;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.io.BufferedInputStream;
