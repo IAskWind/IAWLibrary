@@ -48,4 +48,6 @@ dependencies {
     compile 'me.drakeet.materialdialog:library:1.3.1'
     compile "com.trello:rxlifecycle:${rxlifecycleVersion}"
     compile "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
+    //svprogresshud
+    compile 'com.bigkoo:svprogresshud:1.0.6'
 }
