@@ -232,4 +232,9 @@ public class IAW_UpdateTool {
                 "application/vnd.android.package-archive");
         mContext.startActivity(i);
     }
+
+    public static String update(){
+        return "网上有update工具:https://github.com/czy1121/update 目前依赖已经加了!";
+    }
+
 }

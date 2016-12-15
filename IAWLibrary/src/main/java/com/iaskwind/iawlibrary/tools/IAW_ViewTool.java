@@ -1,5 +1,6 @@
 package com.iaskwind.iawlibrary.tools;
 
+import android.app.Activity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -33,6 +34,14 @@ public class IAW_ViewTool {
             if (menuItem.isVisible()) {
                 menuItem.setVisible(false);
             }
+        }
+    }
+
+    public final static  <V extends View> V findView(Activity activity,int id){
+        try {
+            return (V) activity.findViewById(id);
+        }catch (ClassCastException e){
+            throw  e;
         }
     }
 

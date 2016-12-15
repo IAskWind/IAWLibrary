@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -50,4 +50,7 @@ dependencies {
     compile "com.trello:rxlifecycle-components:${rxlifecycleVersion}"
     //svprogresshud
     compile 'com.bigkoo:svprogresshud:1.0.6'
+    //https://github.com/czy1121/update
+    compile 'com.github.czy1121:update:1.0.3'
+
 }

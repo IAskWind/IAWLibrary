@@ -6,24 +6,30 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.blankj.utilcode.utils.ToastUtils;
 import com.iaskwind.iawlibrary.ProgressHUD.IAW_ProgressHUDTool;
+import com.iaskwind.iawlibrary.retrofit.IAW_RetrofitServiceTool;
+import com.iaskwind.iawlibrary.retrofit.IAW_RxJavaGeneralReqTool;
+import com.iaskwind.iawlibrary.tools.IAW_ViewTool;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
+import rx.Observable;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends RxAppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private IAW_ProgressHUDTool mSVProgressHUD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = IAW_ViewTool.findView(this, R.id.toolbar);
         setSupportActionBar(toolbar);
         mSVProgressHUD=new IAW_ProgressHUDTool(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -47,6 +53,29 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Observable<News> n = IAW_RetrofitServiceTool.createRetrofitService(NewService.class).getNews();
+        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.GeneralReqListener<News>() {
+            @Override
+            public void startLoading() {
+                mSVProgressHUD.iawShow("正在加载中……");
+            }
+
+            @Override
+            public void endLoading() {
+                mSVProgressHUD.dismiss();
+            }
+
+            @Override
+            public void onSuccess(News entity) {
+                Log.d("Test",entity.getResults().get(0).getDesc());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.d("Test",throwable.getMessage());
+            }
+        });
+
     }
 
     @Override
