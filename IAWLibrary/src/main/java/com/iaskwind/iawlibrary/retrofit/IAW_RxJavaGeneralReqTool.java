@@ -16,13 +16,15 @@ import rx.schedulers.Schedulers;
 
 public class IAW_RxJavaGeneralReqTool{
 
+    public interface ReqListener<T> {
 
-
-   public interface GeneralReqListener<T> {
-        void startLoading();
-        void endLoading();
         void onSuccess(T entity);
         void onFailure(Throwable throwable);
+    }
+
+   public interface GeneralReqListener<T> extends ReqListener<T>{
+        void startLoading();
+        void endLoading();
     }
 
     public  static <T> void generalReq(Observable<T> observable, RxAppCompatActivity mContext, final GeneralReqListener<T> generalReqListener){
@@ -48,17 +50,29 @@ public class IAW_RxJavaGeneralReqTool{
                     @Override
                     public void call(T entity) {
                         generalReqListener.onSuccess(entity);
-//                        if (newsEntity1.isTokenInvalid()) {
-//                            AppContext.loginOut();
-//                            return;
-//                        }
-//                        view.handlerSuccessReviewInfo(newsEntity1, isRefresh, flag);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-//                        view.handlerFailureCommonView(isRefresh, flag);
                         generalReqListener.onFailure(throwable);
+                    }
+                });
+    }
+
+    public  static <T> void generalReq(Observable<T> observable, RxAppCompatActivity mContext, final ReqListener<T> reqListener){
+
+        observable.subscribeOn(Schedulers.io())
+                .compose(mContext.<T>bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<T>() {
+                    @Override
+                    public void call(T entity) {
+                        reqListener.onSuccess(entity);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        reqListener.onFailure(throwable);
                     }
                 });
     }

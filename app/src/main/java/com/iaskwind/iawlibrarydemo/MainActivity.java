@@ -54,17 +54,7 @@ public class MainActivity extends RxAppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Observable<News> n = IAW_RetrofitServiceTool.createRetrofitService(NewService.class).getNews();
-        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.GeneralReqListener<News>() {
-            @Override
-            public void startLoading() {
-                mSVProgressHUD.iawShow("正在加载中……");
-            }
-
-            @Override
-            public void endLoading() {
-                mSVProgressHUD.dismiss();
-            }
-
+        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.ReqListener<News>() {
             @Override
             public void onSuccess(News entity) {
                 Log.d("Test",entity.getResults().get(0).getDesc());
