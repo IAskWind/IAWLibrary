@@ -2,6 +2,8 @@ package com.iaskwind.iawlibrary.retrofit;
 
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.iaskwind.iawlibrary.retrofit.Progress.ProgressHelper;
 
 import okhttp3.OkHttpClient;
@@ -15,11 +17,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class IAW_RetrofitServiceTool {
     //给个默认的有效的url否则会报 java.lang.IllegalArgumentException: Illegal URL:
     public static final String baseUrl = "http://127.0.0.1/";
-
+    static Gson gson = new GsonBuilder()
+            //配置Gson
+            .setDateFormat("yyyy-MM-dd hh:mm:ss")
+            .create();
     private static Retrofit.Builder  getRetrofitBuilder(String baseUrl) {
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
         return retrofitBuilder;
 
