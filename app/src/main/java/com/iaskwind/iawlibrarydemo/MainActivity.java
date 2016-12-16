@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity
         setToolBarTitle("你好已经集成了很多方法");
         mSVProgressHUD = new IAW_ProgressHUDTool(this);
         Observable<News> n = IAW_RetrofitServiceTool.createRetrofitService(NewService.class).getNews();
-        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.ReqListener<News>() {
+        IAW_RxJavaGeneralReqTool.generalReq(n, mContext, new IAW_RxJavaGeneralReqTool.ReqListener<News>() {
             @Override
             public void onSuccess(News entity) {
                 Log.d("Test", entity.getResults().get(0).getDesc());
@@ -63,6 +63,13 @@ public class MainActivity extends BaseActivity
             public void onFailure(Throwable throwable) {
                 Log.d("Test", throwable.getMessage());
             }
+
+            @Override
+            public <T> Observable.Transformer<T, T> lifecycle() {
+                return mContext.bindToLifecycle();
+            }
+
+
         });
     }
 

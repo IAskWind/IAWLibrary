@@ -1,6 +1,9 @@
 package com.iaskwind.iawlibrary.rxjava;
 
+import android.content.ComponentCallbacks;
+
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import java.util.List;
 
@@ -22,17 +25,25 @@ public class IAW_RxJavaGeneralReqTool{
 
         void onSuccess(T entity);
         void onFailure(Throwable throwable);
+
+        /**
+         * Rxlifecycle (https://github.com/trello/RxLifecycle)就使被用来严格控制由于发布了一个订阅后，由于没有及时取消，导致Activity/Fragment无法销毁导致的内存泄露。
+         * @param <T>
+         * @return
+         */
+        <T> Observable.Transformer<T, T> lifecycle(); //rxjavashe
     }
 
    public interface GeneralReqListener<T> extends ReqListener<T>{
         void startLoading();
         void endLoading();
+
     }
 
-    public  static <T> void generalReq(Observable<T> observable, RxAppCompatActivity mContext, final GeneralReqListener<T> generalReqListener){
+    public  static <T> void generalReq(Observable<T> observable, RxFragment mContext, final GeneralReqListener<T> generalReqListener){
 
         observable.subscribeOn(Schedulers.io())
-                .compose(mContext.<T>bindToLifecycle())
+                .compose(generalReqListener.<T>lifecycle())
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -61,10 +72,11 @@ public class IAW_RxJavaGeneralReqTool{
                 });
     }
 
+    //    mContext.<T>bindToLifecycle()
     public  static <T> void generalReq(Observable<T> observable, RxAppCompatActivity mContext, final ReqListener<T> reqListener){
 
         observable.subscribeOn(Schedulers.io())
-                .compose(mContext.<T>bindToLifecycle())
+                .compose(reqListener.<T>lifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<T>() {
                     @Override
