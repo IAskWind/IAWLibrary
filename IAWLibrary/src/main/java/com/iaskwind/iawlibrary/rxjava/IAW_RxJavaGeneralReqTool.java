@@ -31,7 +31,7 @@ public class IAW_RxJavaGeneralReqTool{
          * @param <T>
          * @return
          */
-        <T> Observable.Transformer<T, T> lifecycle(); //rxjavashe
+        <T> Observable.Transformer<T, T> lifecycle();
     }
 
    public interface GeneralReqListener<T> extends ReqListener<T>{
@@ -40,7 +40,7 @@ public class IAW_RxJavaGeneralReqTool{
 
     }
 
-    public  static <T> void generalReq(Observable<T> observable, RxFragment mContext, final GeneralReqListener<T> generalReqListener){
+    public  static <T> void generalReq(Observable<T> observable, final GeneralReqListener<T> generalReqListener){
 
         observable.subscribeOn(Schedulers.io())
                 .compose(generalReqListener.<T>lifecycle())
@@ -73,7 +73,7 @@ public class IAW_RxJavaGeneralReqTool{
     }
 
     //    mContext.<T>bindToLifecycle()
-    public  static <T> void generalReq(Observable<T> observable, RxAppCompatActivity mContext, final ReqListener<T> reqListener){
+    public  static <T> void generalReq(Observable<T> observable, final ReqListener<T> reqListener){
 
         observable.subscribeOn(Schedulers.io())
                 .compose(reqListener.<T>lifecycle())
