@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by winston on 16/11/29.
+ * https://github.com/square/retrofit
  */
 public class IAW_RetrofitServiceTool {
     //给个默认的有效的url否则会报 java.lang.IllegalArgumentException: Illegal URL:

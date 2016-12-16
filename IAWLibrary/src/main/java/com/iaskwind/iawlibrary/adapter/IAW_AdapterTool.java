@@ -2,6 +2,7 @@ package com.iaskwind.iawlibrary.adapter;
 
 /**
  * Created by winston on 16/12/16.
+ * https://github.com/CymChad/BaseRecyclerViewAdapterHelper/
  */
 
 public class IAW_AdapterTool {

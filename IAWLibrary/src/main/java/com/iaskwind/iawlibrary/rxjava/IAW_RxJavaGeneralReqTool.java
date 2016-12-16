@@ -12,6 +12,8 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by winston on 16/12/15.
+ * https://github.com/ReactiveX/RxJava
+ * https://github.com/trello/RxLifecycle
  */
 
 public class IAW_RxJavaGeneralReqTool{

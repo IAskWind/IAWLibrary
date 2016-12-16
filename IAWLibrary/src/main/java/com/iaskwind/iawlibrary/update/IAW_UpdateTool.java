@@ -233,6 +233,10 @@ public class IAW_UpdateTool {
         mContext.startActivity(i);
     }
 
+    /**
+     * https://github.com/czy1121/update
+     * @return
+     */
     public static String update(){
         return "网上有update工具:https://github.com/czy1121/update 目前依赖已经加了!";
     }

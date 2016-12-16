@@ -19,6 +19,8 @@ import butterknife.ButterKnife;
 /**
  * 如果重新定义ToolBar上面的HomeAsUp图标只需重写{@link #setBackEvent}即可
  * Created by Winston on 2016/4/5.
+ * https://github.com/JakeWharton/butterknife
+ * https://github.com/avast/android-butterknife-zelezny 插件
  */
 
 public abstract class IAW_BaseActivity extends RxAppCompatActivity {
