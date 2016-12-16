@@ -1,4 +1,4 @@
-package com.iaskwind.iawlibrary.retrofit;
+package com.iaskwind.iawlibrary.rxjava;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 

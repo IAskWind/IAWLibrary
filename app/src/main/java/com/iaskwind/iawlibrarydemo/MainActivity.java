@@ -14,25 +14,65 @@ import android.view.View;
 
 import com.iaskwind.iawlibrary.ProgressHUD.IAW_ProgressHUDTool;
 import com.iaskwind.iawlibrary.retrofit.IAW_RetrofitServiceTool;
-import com.iaskwind.iawlibrary.retrofit.IAW_RxJavaGeneralReqTool;
-import com.iaskwind.iawlibrary.tools.IAW_ViewTool;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.iaskwind.iawlibrary.rxjava.IAW_RxJavaGeneralReqTool;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 
 
-public class MainActivity extends RxAppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.nav_view)
+    NavigationView navView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+//    @BindView(R.id.fab)
+//    FloatingActionButton fab;
+//    @BindView(R.id.nav_view)
+//    NavigationView navView;
+//    @BindView(R.id.drawer_layout)
+//    DrawerLayout drawerLayout;
+
     private IAW_ProgressHUDTool mSVProgressHUD;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Toolbar toolbar = IAW_ViewTool.findView(this, R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mSVProgressHUD=new IAW_ProgressHUDTool(this);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    protected int setContentView() {
+        return R.layout.activity_main;
+    }
+
+
+    @Override
+    protected void initView() {
+        setToolBarTitle("你好已经集成了很多方法");
+        mSVProgressHUD = new IAW_ProgressHUDTool(this);
+        Observable<News> n = IAW_RetrofitServiceTool.createRetrofitService(NewService.class).getNews();
+        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.ReqListener<News>() {
+            @Override
+            public void onSuccess(News entity) {
+                Log.d("Test", entity.getResults().get(0).getDesc());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.d("Test", throwable.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void setOnclick() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,31 +80,18 @@ public class MainActivity extends RxAppCompatActivity
 //                        .setAction("Action", null).show();
 //                ToastUtils.showLongToastSafe(MainActivity.this,"nihaodfdafdafdafdafdafdfdfdfd");
 //                mSVProgressHUD.iawShowErrorInfo("nihaodafdafdfadf");
-                    mSVProgressHUD.iawShow("正在加载中……");
+                mSVProgressHUD.iawShow("正在加载中……");
 
 
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        Observable<News> n = IAW_RetrofitServiceTool.createRetrofitService(NewService.class).getNews();
-        IAW_RxJavaGeneralReqTool.generalReq(n, this, new IAW_RxJavaGeneralReqTool.ReqListener<News>() {
-            @Override
-            public void onSuccess(News entity) {
-                Log.d("Test",entity.getResults().get(0).getDesc());
-            }
+        navView.setNavigationItemSelectedListener(this);
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                Log.d("Test",throwable.getMessage());
-            }
-        });
+    }
+
+    @Override
+    protected void initRxBus() {
 
     }
 
@@ -119,9 +146,14 @@ public class MainActivity extends RxAppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

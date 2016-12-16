@@ -13,4 +13,6 @@ public interface NewService {
 
     @GET("http://gank.io/api/data/Android/10/1")
     Observable<News> getNews();
+
+
 }
